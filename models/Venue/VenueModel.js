@@ -1,6 +1,6 @@
 const sequelize = require('../../utilities/database')
 const { Sequelize, Model, DataTypes } = require('sequelize');
-const VenueFeeGroup = require('./VenueFeeGroupModel');
+const UploadSet = require('../Upload/UploadSetModel');
 
 
 class Venue extends Model {}
@@ -52,5 +52,7 @@ Venue.init({
     deletedAt: true,
     tableName: 'Venues'
 })
+
+Venue.belongsTo(UploadSet, { foreignKey: 'UploadSetId'})
 
 module.exports = Venue;

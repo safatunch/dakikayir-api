@@ -1,31 +1,42 @@
+const Upload = require("../../models/Upload/UploadModel");
+const UploadSet = require("../../models/Upload/UploadSetModel");
 const VenueFeeGroup = require("../../models/Venue/VenueFeeGroupModel");
 const VenueFee = require("../../models/Venue/VenueFeeModel");
 const Venue = require("../../models/Venue/VenueModel")
+
 class VenueService {
     constructor(name) {
         this.name = name;
     }
 
     listOptions = {
-        attributes: ['Id', 'Name'],
-        include: [{
+    attributes: ['Id', 'Name', 'PlaceId'],
+    include: [{
         model: VenueFeeGroup,
         attributes: ['Id'],
         include: [{
             model: VenueFee,
             attributes: ['Price'],
         }]
+    }, {
+        model: UploadSet,
+        attributes: ['Id'],
+        include: [{
+            model: Upload,
+            attributes: ['Name', 'Url', 'Sequence', 'DocType']
+        }]
     }], 
     };
 
     detailOptions = {
-        attributes: ['Id', 'Name'],
+        attributes: ['Id', 'Name', 'PlaceId'],
         include: [{
         model: VenueFeeGroup,
         attributes: ['Id'],
         include: [{
             model: VenueFee,
-            attributes: ['Price'],
+            attributes: ['MinimumQuantity','DurationType', 'Price'],
+            
         }]
     }], 
     };
