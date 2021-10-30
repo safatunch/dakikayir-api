@@ -5,9 +5,10 @@ var sequelize = new Sequelize("dakikayir", "safa", "123", {
   dialect: 'mssql',
   port: 51527,
   pool: {
-    max: 10,
+    max: 5,
     min: 0,
-    idle: 30000
+    acquire: 30000,
+    idle: 10000
   },
   dialectOptions: {
     instanceName: "localhost\\MSSQLSERVER16",
@@ -24,7 +25,5 @@ var sequelize = new Sequelize("dakikayir", "safa", "123", {
     }
   }
 })
-
-
 
 module.exports = sequelize;

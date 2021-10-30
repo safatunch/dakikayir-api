@@ -5,10 +5,6 @@ const VenueFee = require("../../models/Venue/VenueFeeModel");
 const Venue = require("../../models/Venue/VenueModel")
 
 class VenueService {
-    constructor(name) {
-        this.name = name;
-    }
-
     listOptions = {
     attributes: ['Id', 'Name', 'PlaceId'],
     include: [{
@@ -36,7 +32,13 @@ class VenueService {
         include: [{
             model: VenueFee,
             attributes: ['MinimumQuantity','DurationType', 'Price'],
-            
+        }]
+    }, {
+        model: UploadSet,
+        attributes: ['Id'],
+        include: [{
+            model: Upload,
+            attributes: ['Name', 'Url', 'Sequence', 'DocType']
         }]
     }], 
     };

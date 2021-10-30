@@ -7,8 +7,12 @@ exports.Authorize = (req, res, next) => {
         const token = authorizationHeader.split(' ')[1]
         const tokenResult = jwt.verify(token, process.env.JsonSecretKey)
         if(tokenResult){
-            res.json(tokenResult)
+            req.user = tokenResult;
+            return next();
+        }
+        else {
+            return res.json('NO ACCESS')
         }
     }
-    res.json('NO ACCESS')
+    return res.json('NO ACCESS')
 }

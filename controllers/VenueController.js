@@ -1,12 +1,12 @@
 const VenueService = require('../services/Venue/VenueService')
-const service = new VenueService()
-
 const GoogleMapsService = require('../services/GoogleMaps/GoogleMapsService')
-const googleMaps = new GoogleMapsService();
+
+const service = new VenueService()
+const googleMapsService = new GoogleMapsService();
 
 module.exports.Get = async (req, res, next) => {
     var venue = await service.Get(req.params.id, service.detailOptions)
-    const placeData = await googleMaps.GetPlaceData(venue.PlaceId);
+    const placeData = await googleMapsService.GetPlaceData(venue.PlaceId);
     venue.setDataValue('Place', placeData);
     return res.json(venue)
 }

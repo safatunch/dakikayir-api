@@ -16,7 +16,9 @@ module.exports = class GoogleMapsService {
                 res.on('end', () => {
                     resolve(JSON.parse(chunk));
                 })
-
+                res.on('error', (er) => {
+                    reject(er.message)
+                })
             })
         }) 
     }

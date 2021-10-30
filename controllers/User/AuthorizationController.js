@@ -8,7 +8,8 @@ module.exports.Login = async (req, res, next) => {
     User.findOne({ where: { Username: username } }).then(user => {
         bcrpyt.compare(password, user.PasswordHash).then(result => {
             if (result) {
-                const token = jwt.sign(user.toJSON(), process.env.JsonSecretKey, { expiresIn: "7d" })
+                const { JsonSecretKey, JsonExpiresIn} = process.env
+                const token = jwt.sign(user.toJSON(), JsonSecretKey, { expiresIn: JsonExpiresIn })
                 return res.json(token);
             }
             else {
@@ -22,7 +23,7 @@ module.exports.Login = async (req, res, next) => {
 
 module.exports.Get = async (req, res, next) => {
     const user = jwt.verify(req.headers.authorization.split(' ')[1], process.env.JsonSecretKey)
-        res.json(user)
+    return res.json(user)
 }
 
 module.exports.Register = async (req, res, next) => {
