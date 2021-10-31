@@ -12,7 +12,10 @@ module.exports.Get = async (req, res, next) => {
 }
     
 module.exports.GetAll = async (req, res, next) => {
-    const venues = await service.GetAll(service.listOptions)
+    const limit = req.query.limit || 10;
+    const page = req.query.page || 1;
+    
+    const venues = await service.GetAll({ ...service.listOptions, offset: ((parseInt(page)-1) * parseInt(limit)), limit: parseInt(limit) })
     return res.json(venues)
 }
 

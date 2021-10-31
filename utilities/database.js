@@ -4,10 +4,10 @@ var sequelize = new Sequelize("dakikayir", "safa", "123", {
   host: "localhost",
   dialect: 'mssql',
   port: 51527,
+  logging: false,
   pool: {
     max: 5,
     min: 0,
-    acquire: 30000,
     idle: 10000
   },
   dialectOptions: {
